@@ -1,0 +1,9 @@
+pyrogram
+tgcrypto
+yt-dlp
+pytube
+aiohttp
+requests
+asyncio
+python-dotenv
+ffmpeg
