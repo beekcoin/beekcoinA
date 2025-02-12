@@ -1,0 +1,32 @@
+name: Pylint Code Linting
+
+on:
+  push:
+    branches:
+      - main  # Faqat main branchga push bo‘lganda ishlaydi
+  pull_request:
+    branches:
+      - main  # Pull request bo‘lganda ham tekshiradi
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository-ni yuklash
+        uses: actions/checkout@v3
+
+      - name: Pythonni o‘rnatish
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Python versiyasini tanlang
+
+      - name: Pylint va talab qilinadigan kutubxonalarni o‘rnatish
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Pylint orqali kodni tekshirish
+        run: |
+          pylint $(git ls-files '*.py')
